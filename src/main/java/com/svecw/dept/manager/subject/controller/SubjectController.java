@@ -2,6 +2,7 @@ package com.svecw.dept.manager.subject.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,15 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.svecw.dept.manager.subject.model.Subject;
 import com.svecw.dept.manager.subject.model.SubjectDataProvider;
 import com.svecw.dept.manager.subject.model.Topic;
+import com.svecw.dept.manager.subject.service.ISubjectService;
 
 @RestController
 @RequestMapping("/subject")
 public class SubjectController {
 
+    @Autowired
+    ISubjectService subjectService;
+
     @RequestMapping("/")
     public List<Subject> listSubjects() {
         System.out.println("Listing all subjects111111");
-        return SubjectDataProvider.getData().values().stream().toList();
+        return subjectService.getAllSubjects();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
