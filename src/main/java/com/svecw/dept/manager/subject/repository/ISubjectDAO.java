@@ -8,4 +8,6 @@ public interface ISubjectDAO {
 
     public List<Subject> findAll();
 
+    public Subject findById(String id);
+
 }

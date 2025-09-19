@@ -18,4 +18,8 @@ public class SubjectServiceImpl implements ISubjectService {
         return subjectDAO.findAll();
     }
 
+    public Subject getSubjectById(String id) {
+        return subjectDAO.findById(id);
+    }
+
 }

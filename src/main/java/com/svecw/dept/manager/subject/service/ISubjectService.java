@@ -8,4 +8,6 @@ public interface ISubjectService {
 
     public List<Subject> getAllSubjects();
 
+    public Subject getSubjectById(String id);
+
 }

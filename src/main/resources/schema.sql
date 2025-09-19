@@ -1,4 +1,4 @@
-CREATE TABLE if not exists subjects (
+CREATE TABLE if not exists subject.subjects (
     subject_id VARCHAR(50) PRIMARY KEY,
     code VARCHAR(20) UNIQUE NOT NULL,
     name VARCHAR(100) NOT NULL,
@@ -8,7 +8,7 @@ CREATE TABLE if not exists subjects (
 );
 
 -- Subject prerequisites (self-referencing many-to-many)
-CREATE TABLE if not exists subject_prerequisites (
+CREATE TABLE if not exists subject.subject_prerequisites (
     subject_id VARCHAR(50),
     prerequisite_id VARCHAR(50),
     PRIMARY KEY (subject_id, prerequisite_id),
@@ -17,7 +17,7 @@ CREATE TABLE if not exists subject_prerequisites (
 );
 
 
-CREATE TABLE if not exists topics (
+CREATE TABLE if not exists subject.topics (
     topic_id VARCHAR(50) PRIMARY KEY,
     subject_id VARCHAR(50) NOT NULL,
     name VARCHAR(100) NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE if not exists topics (
 );
 
 -- Topic reference materials (one-to-many list)
-CREATE TABLE if not exists  topic_references (
+CREATE TABLE if not exists  subject.topic_references (
     reference_id SERIAL PRIMARY KEY,
     topic_id VARCHAR(50),
     reference_text TEXT NOT NULL,

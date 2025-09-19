@@ -34,7 +34,7 @@ public class SubjectController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Subject getSubject(@PathVariable("id") String id) {
         System.out.println(id);
-        return SubjectDataProvider.getData().get(id);
+        return subjectService.getSubjectById(id);
     }
 
     @GetMapping("/search/{prefix}")
