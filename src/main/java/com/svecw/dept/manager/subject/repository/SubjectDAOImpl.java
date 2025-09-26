@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import com.svecw.dept.manager.subject.model.Subject;
@@ -17,18 +16,17 @@ import com.svecw.dept.manager.subject.model.Subject;
 import jakarta.annotation.PostConstruct;
 
 @Repository
-@Primary
 public class SubjectDAOImpl implements ISubjectDAO {
 
     private Connection connection;
 
-    @Value("${mysql.database.url}")
+    @Value("${spring.datasource.url}")
     private String url;
 
-    @Value("${mysql.database.username}")
+    @Value("${spring.datasource.username}")
     private String userName;
 
-    @Value("${mysql.database.password}")
+    @Value("${spring.datasource.password}")
     private String password;
 
     @PostConstruct
@@ -103,6 +101,7 @@ public class SubjectDAOImpl implements ISubjectDAO {
     public Subject findById(String id) {
         List<Subject> subjects = new ArrayList<>();
         String query = "select * from subject.subjects where subject_id='" + id + "'";
+        System.out.println(query);
         Statement st = null;
         ResultSet rs = null;
         try {
