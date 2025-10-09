@@ -72,7 +72,7 @@ public class SubjectDAOImpl implements ISubjectDAO {
                 int totalHours = rs.getInt("total_hours");
                 int credits = rs.getInt("credits");
                 Subject currSubject = new Subject();
-                currSubject.setId(subject_id);
+                currSubject.setSubjectId(subject_id);
                 currSubject.setCode(code);
                 currSubject.setName(name);
                 currSubject.setDescription(description);
@@ -123,7 +123,7 @@ public class SubjectDAOImpl implements ISubjectDAO {
                 int totalHours = rs.getInt("total_hours");
                 int credits = rs.getInt("credits");
                 Subject currSubject = new Subject();
-                currSubject.setId(subject_id);
+                currSubject.setSubjectId(subject_id);
                 currSubject.setCode(code);
                 currSubject.setName(name);
                 currSubject.setDescription(description);

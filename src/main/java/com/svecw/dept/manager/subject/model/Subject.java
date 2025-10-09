@@ -10,13 +10,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Subject {
-    private String id;
+
+    private String subjectId;
     private String code;
     private String name;
     private String description;
     private int totalHours;
     private int credits;
-    private List<String> prerequisites;
+    // private List<String> prerequisites;
     private List<Topic> topics;
 
 }

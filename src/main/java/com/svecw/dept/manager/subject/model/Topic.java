@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Topic {
 
-    private String id;
+    private String topicId;
     private String name;
     private String description;
     private int theoryHours;

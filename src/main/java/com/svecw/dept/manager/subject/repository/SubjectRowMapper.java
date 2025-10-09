@@ -18,7 +18,7 @@ public class SubjectRowMapper implements RowMapper<Subject> {
         String description = rs.getString("description");
         int totalHours = rs.getInt("total_hours");
         int credits = rs.getInt("credits");
-        currSubj.setId(subject_id);
+        currSubj.setSubjectId(subject_id);
         currSubj.setCode(code);
         currSubj.setName(name);
         currSubj.setDescription(description);

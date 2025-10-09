@@ -1,7 +1,6 @@
 package com.svecw.dept.manager.subject.model;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +12,7 @@ public class SubjectDataProvider {
         static {
                 data = new HashMap<>();
                 for (Subject subject : getSubjects()) {
-                        data.put(subject.getId(), subject);
+                        data.put(subject.getSubjectId(), subject);
                 }
         }
 
@@ -31,7 +30,6 @@ public class SubjectDataProvider {
                                                 60,
 
                                                 4,
-                                                Collections.emptyList(),
                                                 Arrays.asList(
                                                                 new Topic(
                                                                                 "MATH101-T1",
@@ -64,7 +62,6 @@ public class SubjectDataProvider {
                                                 60,
 
                                                 4,
-                                                Arrays.asList("MATH101"),
                                                 Arrays.asList(
                                                                 new Topic(
                                                                                 "MATH201-T1",
@@ -92,7 +89,6 @@ public class SubjectDataProvider {
                                                 45,
 
                                                 3,
-                                                Arrays.asList("MATH101"),
                                                 Arrays.asList(
                                                                 new Topic(
                                                                                 "STAT101-T1",

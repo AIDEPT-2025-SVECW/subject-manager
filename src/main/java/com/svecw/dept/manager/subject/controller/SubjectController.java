@@ -37,59 +37,44 @@ public class SubjectController {
         return subjectService.getSubjectById(id);
     }
 
-    @GetMapping("/search/{prefix}")
-    public List<Subject> getSubjectStartingWith(@PathVariable("prefix") String prefix) {
+    // Not a good approach as I am using prefix as parth variable which
+    // is not a good practice as path variable should be used to identify a resource
+    // uniquely
+    // hence using request param approach is recommended
+    @Deprecated
+    @GetMapping("/search1/{prefix}")
+    public List<Subject> getSubjectStartingWith_1(@PathVariable("prefix") String prefix) {
         System.out.println(prefix);
         return SubjectDataProvider.getData().values().stream()
-                .filter(subject -> subject.getId().startsWith(prefix))
+                .filter(subject -> subject.getSubjectId().startsWith(prefix))
                 .toList();
     }
 
-    @GetMapping("/search1")
-    public List<Subject> getSubjectStartingWith_1(@RequestParam("prefix") String prefix) {
-        System.out.println(prefix);
-        return SubjectDataProvider.getData().values().stream()
-                .filter(subject -> subject.getId().startsWith(prefix))
-                .toList();
+    @GetMapping("/search")
+    public List<Subject> getSubjectStartingWith(@RequestParam("prefix") String prefix) {
+        return subjectService.getSubjectStartingWith(prefix);
     }
 
     @GetMapping("/{id}/topics")
     public List<Topic> getSubjectTopics(@PathVariable("id") String id) {
         System.out.println(id);
-        return SubjectDataProvider.getData().get(id).getTopics();
+        return subjectService.getSubjectTopics(id);
     }
 
     @RequestMapping("/{id}/topics/{topicId}")
     public Topic getSubjectTopic(@PathVariable("id") String id, @PathVariable("topicId") String topicId) {
         System.out.println(id + " " + topicId);
-        return SubjectDataProvider.getData().get(id).getTopics().stream()
-                .filter(topic -> topic.getId().equals(topicId))
-                .findFirst()
-                .orElse(null);
+        return subjectService.getSubjectTopic(id, topicId);
     }
 
     @PostMapping("/{id}/topics")
     public Topic addTopicToSubject(@PathVariable("id") String id, @RequestBody Topic topic2Add) {
-        Subject subject = SubjectDataProvider.getData().get(id);
-        System.out.println("topic 2 add " + topic2Add.getDescription());
-        if (subject == null) {
-            throw new RuntimeException("Subject not found with id: " + id);
-        }
-        subject.getTopics().add(topic2Add);
-        return topic2Add;
+        return subjectService.addTopicToSubject(id, topic2Add);
     }
 
-    @DeleteMapping("/{id}/topics?name={prefix}")
+    @DeleteMapping("/{id}/topics/{topicId}")
     public String deleteTopicFromSubject(@PathVariable("id") String id, @PathVariable("topicId") String topicId) {
-        Subject subject = SubjectDataProvider.getData().get(id);
-        if (subject == null) {
-            throw new RuntimeException("Subject not found with id: " + id);
-        }
-        boolean removed = subject.getTopics().removeIf(topic -> topic.getId().equals(topicId));
-        if (!removed) {
-            throw new RuntimeException("Topic not found with id: " + topicId + " in subject: " + id);
-        }
-        return "Topic with id: " + topicId + " removed from subject: " + id;
+        return subjectService.deleteTopicFromSubject(id, topicId);
     }
 
 }

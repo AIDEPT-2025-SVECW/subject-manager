@@ -37,8 +37,8 @@ public class SubjectSpringTemplateDaoImpl implements ISubjectDAO {
      * Get subject by ID.
      */
     @Override
-    public Subject findById(String id) {
-        String sql = "SELECT * FROM subject.subjects WHERE id = ?";
+    public Subject findById(String id) {topicId
+        String sql = "SELECT * FROM subject.subjects WHERE subject_id = ?";
         return template.queryForObject(sql, new BeanPropertyRowMapper<>(Subject.class), id);
     }
 
@@ -48,7 +48,7 @@ public class SubjectSpringTemplateDaoImpl implements ISubjectDAO {
      */
     @Override
     public List<Subject> findByIdStartingWith(String prefix) {
-        String sql = "SELECT * FROM subject.subjects WHERE id LIKE ?";
+        String sql = "SELECT * FROM subject.subjects WHERE subject_id LIKE ?";
         return template.query(sql, new BeanPropertyRowMapper<>(Subject.class), prefix + "%");
     }
 
@@ -58,7 +58,7 @@ public class SubjectSpringTemplateDaoImpl implements ISubjectDAO {
      */
     @Override
     public List<Subject> findByIdStartingWithIgnoreCase(String prefix) {
-        String sql = "SELECT * FROM subject.subjects WHERE LOWER(id) LIKE LOWER(?)";
+        String sql = "SELECT * FROM subject.subjects WHERE LOWER(subject_id) LIKE LOWER(?)";
         return template.query(sql, new BeanPropertyRowMapper<>(Subject.class), prefix + "%");
     }
 
@@ -79,7 +79,7 @@ public class SubjectSpringTemplateDaoImpl implements ISubjectDAO {
      */
     @Override
     public Topic findTopicBySubjectIdAndId(String subjectId, String topicId) {
-        String sql = "SELECT * FROM subject.topics WHERE subject_id = ? AND id = ?";
+        String sql = "SELECT * FROM subject.topics WHERE subject_id = ? AND topic_id = ?";
         return template.queryForObject(sql, new BeanPropertyRowMapper<>(Topic.class), subjectId, topicId);
     }
 
@@ -89,8 +89,9 @@ public class SubjectSpringTemplateDaoImpl implements ISubjectDAO {
      */
     @Override
     public int saveTopic(String subjectId, Topic topic) {
-        String sql = "INSERT INTO subject.topics (id, description, subject_id) VALUES (?, ?, ?)";
-        return template.update(sql, topic.getId(), topic.getDescription(), subjectId);
+        String sql = "INSERT INTO subject.topics (topic_id, name,description, subject_id,theory_hours) VALUES (?,?, ?, ?,?)";
+        return template.update(sql, topic.getTopicId(), topic.getName(), topic.getDescription(), subjectId,
+                topic.getTheoryHours());
     }
 
     /**
@@ -100,7 +101,7 @@ public class SubjectSpringTemplateDaoImpl implements ISubjectDAO {
      */
     @Override
     public int deleteTopicBySubjectIdAndId(String subjectId, String topicId) {
-        String sql = "DELETE FROM subject.topics WHERE subject_id = ? AND id = ?";
+        String sql = "DELETE FROM subject.topics WHERE subject_id = ? AND topic_id = ?";
         return template.update(sql, subjectId, topicId);
     }
 }
