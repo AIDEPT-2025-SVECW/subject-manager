@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.svecw.dept.manager.subject.model.Subject;
 import com.svecw.dept.manager.subject.model.Topic;
 import com.svecw.dept.manager.subject.repository.ISubjectDAO;
+import com.svecw.dept.manager.subject.repository.ISubjectJPADAO;
 
 @Service
 public class SubjectServiceImpl implements ISubjectService {
@@ -15,20 +16,24 @@ public class SubjectServiceImpl implements ISubjectService {
     @Autowired
     ISubjectDAO subjectDAO;
 
+    @Autowired
+    ISubjectJPADAO subjectJPADAO;
+
     public List<Subject> getAllSubjects() {
-        return subjectDAO.findAll();
+        return subjectJPADAO.findAll();
     }
 
     public Subject getSubjectById(String id) {
-        return subjectDAO.findById(id);
+        return subjectJPADAO.findById(id).get();
     }
 
     public List<Subject> getSubjectStartingWith(String prefix) {
-        return subjectDAO.findByIdStartingWithIgnoreCase(prefix);
+        return subjectJPADAO.findBySubjectIdStartingWithIgnoreCase(prefix);
     }
 
     public List<Topic> getSubjectTopics(String subjectId) {
-        return subjectDAO.findTopicsBySubjectId(subjectId);
+
+        return subjectJPADAO.findById(subjectId).get().getTopics();
     }
 
     public Topic getSubjectTopic(String subjectId, String topicId) {

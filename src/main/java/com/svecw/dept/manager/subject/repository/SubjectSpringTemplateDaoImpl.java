@@ -37,7 +37,7 @@ public class SubjectSpringTemplateDaoImpl implements ISubjectDAO {
      * Get subject by ID.
      */
     @Override
-    public Subject findById(String id) {topicId
+    public Subject findById(String id) {
         String sql = "SELECT * FROM subject.subjects WHERE subject_id = ?";
         return template.queryForObject(sql, new BeanPropertyRowMapper<>(Subject.class), id);
     }
